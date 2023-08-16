@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Create New Order</h1>
+    <form method="post" action="{% url 'create_order' %}">
+        {% csrf_token %}
+        <label for="customerName">Customer Name:</label>
+        <input type="text" id="customerName" name="customer_name" required><br><br>
+        <label for="dishIds">Select Dishes:</label><br>
+        {% for dish in dishes %}
+            <input type="checkbox" id="dish{{ dish.id }}" name="dish_ids" value="{{ dish.id }}">
+            <label for="dish{{ dish.id }}">{{ dish.dish_name }} - ${{ dish.price }}</label><br>
+        {% endfor %}
+        <br>
+        <button type="submit">Place Order</button>
+    </form>
+</body>
+</html>
